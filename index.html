@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CV - Xəyyam Mustafayev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Roboto font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      background: #e4eaef;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1050px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    /* download PDF button */
+    .download-wrapper {
+      text-align: right;
+      margin-bottom: 12px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 4px;
+      background: #145349;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .download-btn:hover {
+      background: #0f3f37;
+    }
+
+    .resume {
+      background: #ffffff;
+      border-radius: 6px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.18);
+      min-height: 840px;
+    }
+
+    /* LEFT SIDEBAR */
+    .sidebar {
+      background: #1c7d6d;
+      color: #ffffff;
+      padding: 40px 42px 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-top {
+      margin-bottom: 32px;
+    }
+
+    .profile-photo {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .profile-photo img {
+      width: 50%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: 0.25s ease;
+    }
+
+    /* иконка увеличения */
+    .zoom-icon {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      transform: translateX(-50%);
+      padding: 4px 7px;
+      font-size: 15px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .name {
+      font-size: 20px;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .role {
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .sidebar-section {
+      margin-bottom: 28px;
+      font-size: 16px;
+    }
+
+    .sidebar-section-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-divider {
+      height: 2px;
+      width: 100%;
+
+      margin-bottom: 12px;
+    }
+
+    .sidebar-label {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-section p {
+      margin-bottom: 6px;
+      font-size: 16px;
+      z-index: 9999;
+    /* display: block; */
+    position: relative;
+    }
+
+    .clickable {
+      cursor: pointer;
+      color: #c6ffd6;
+    }
+
+    .sidebar-links a {
+      display: block;
+      position: relative;
+          z-index: 9999;
+      color: #ffffff;
+      text-decoration: none;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .sidebar-links a:hover {
+      text-decoration: underline;
+    }
+
+    .skills-group {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .skills-group-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    /* Flutter logo */
+    .sidebar-flutter-logo {
+      margin: 6px 0 22px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .sidebar-flutter-logo img {
+      width: 100%;
+      position: absolute;
+      margin-top: -140px;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+      padding: 42px 52px 50px;
+    }
+
+    .section {
+      margin-bottom: 34px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .profile-text,
+    .exp-role,
+    .exp-dates,
+    .exp-period,
+    .content ul li {
+      font-size: 16px;
+    }
+
+    .exp-company {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .content ul {
+      padding-left: 18px;
+      color: #4b5563;
+    }
+
+    .education-block,
+    .languages span {
+      font-size: 16px;
+    }
+
+    /* FULLSCREEN IMAGE OVERLAY */
+    .image-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      cursor: zoom-out;
+    }
+
+    .image-overlay img {
+      max-width: 40%;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.25);
+      animation: zoomIn 0.25s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 800px) {
+      .resume { grid-template-columns: 1fr; }
+      .sidebar { padding: 24px; }
+      .content { padding: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- FULLSCREEN ZOOM OVERLAY -->
+  <div class="image-overlay" id="imageOverlay">
+    <img src="/assets/profile-photo.png" alt="">
+  </div>
+
+  <div class="page">
+
+    <!-- Кнопка скачивания PDF -->
+    <!-- Поменяй href на реальный путь к твоему PDF -->
+    <div class="download-wrapper">
+      <a class="download-btn" href="/assets/xeyyam-mustafayev-cv.pdf" download>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="resume">
+
+      <!-- LEFT -->
+      <aside class="sidebar">
+
+        <div class="sidebar-top">
+          <div class="profile-photo" id="profilePhoto">
+            <span class="zoom-icon">🔍</span>
+            <img src="/assets/profile-photo.png" alt="Profile photo">
+          </div>
+
+          <div class="name">Xəyyam Mustafayev</div>
+          <div class="role">Flutter Mobile Developer</div>
+        </div>
+
+        <section class="sidebar-section">
+          <div class="sidebar-section-title">Details</div>
+          <div class="sidebar-divider"></div>
+
+          <p class="sidebar-label">Address</p>
+          <p>Bakı şəhəri, Səbail rayon,<br>Badamdar qəsəbəsi.</p>
+
+          <p class="sidebar-label" style="margin-top:8px;">Phone</p>
+          <p class="clickable" onclick="window.location.href='tel:+994554240996'">
+            +994(55)424-09-96
+          </p>
+
+          <p class="sidebar-label" style="margin-top:8px;">Email</p>
+          <p class="clickable" onclick="window.location.href='mailto:xeyyamit@gmail.com'">
+            xeyyamit@gmail.com
+          </p>
+        </section>
+
+        <div class="sidebar-flutter-logo">
+          <img src="/assets/logo-flutter.png" alt="Flutter logo">
+        </div>
+
+        <section class="sidebar-section">
+          <div class="sidebar-section-title">Published Apps</div>
+          <div class="sidebar-divider"></div>
+          <div class="sidebar-links">
+            <a href="https://apps.apple.com/us/developer/rain-plus-mmc/id1605150659" target="_blank">App Store</a>
+            <a href="https://play.google.com/store/apps/collection/cluster?gsr=SltqGHoxdTZLWWhvQ25JU0hpa1I2MEpNNXc9PbICOwoeChpjby5oYXNhbm9nbHUubG9naXRyYW5zLmFwcBAHEhcIARITNzkzNjQ3ODcyOTQzMjc3MDk3OBgAsBIA:S:ANO1ljJx8fs" target="_blank">Google Play</a>
+          </div>
+        </section>
+
+        <section class="sidebar-section">
+          <div class="sidebar-section-title">Skills</div>
+          <div class="sidebar-divider"></div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Frontend/Mobile:</div>
+            <div>Flutter, Dart, UI/UX</div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Backend/Database:</div>
+            <div>Firebase, MySQL, MongoDB</div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Tools:</div>
+            <div>Git, ClickUp, Trello, Postman</div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Design:</div>
+            <div>Figma</div>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- RIGHT -->
+      <main class="content">
+        <section class="section">
+          <h2 class="section-title">Profile</h2>
+          <p class="profile-text">
+            A hard-working, detail-oriented, and self-motivated Mobile Application Developer with hands-on
+            experience in building and deploying cross-platform applications using Flutter for both iOS
+            and Android. Passionate about clean architecture, responsive UI design, and performance
+            optimization. Continuously learning and implementing new technologies to enhance development
+            efficiency and deliver innovative, user-friendly mobile solutions.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Experience</h2>
+
+          <div>
+            <div class="exp-company">Rain+ MMC</div>
+            <div class="exp-role">İT üzrə Mütəxəssis</div>
+            <div class="exp-dates">August 2021 – Present</div>
+
+            <p class="exp-period">August 2021 - Present</p>
+
+            <ul>
+              <li>Built responsive UI in Flutter using SOLID principles and MVVM/MVC architecture.</li>
+              <li>Designed and implemented project architecture with API integrations and modular structure.</li>
+              <li>Experienced in Clean Architecture and scalable app design.</li>
+              <li>Developed, debugged, and maintained Flutter apps.</li>
+              <li>Managed bug fixing, optimization, refactoring.</li>
+              <li>Published apps on Google Play & App Store.</li>
+              <li>Researched and adopted new technologies.</li>
+              <li>Collaborated with design & backend teams.</li>
+              <li>Created custom widgets & animations.</li>
+              <li>Improved performance & code quality.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Education</h2>
+
+          <div class="education-block">
+            <strong>Smolny Institute of Russian Academy of Education</strong><br>
+            <span>Faculty of [Information systems and technology]</span><br>
+            <span>Sep 2009 – May 2014</span><br>
+            <span>Bachelor’s / Specialist</span>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Languages</h2>
+          <div class="languages">
+            <span>Azerbaijan</span><br>
+            <span>Russian</span><br>
+            <span>English</span>
+          </div>
+        </section>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    // Photo zoom
+    const profilePhoto = document.getElementById("profilePhoto");
+    const overlay = document.getElementById("imageOverlay");
+
+    profilePhoto.onclick = () => {
+      overlay.style.display = "flex";
+    };
+
+    overlay.onclick = () => {
+      overlay.style.display = "none";
+    };
+  </script>
+
+</body>
+</html>
